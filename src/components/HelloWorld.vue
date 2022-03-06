@@ -1,15 +1,33 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <p>mouse: {{x}} x {{y}}</p>
+    <p>
+      interval filed: {{ counter }}
+      <button @click="pause">pause</button>
+      <button @click="resume">resume</button>
+    </p>
   </div>
 </template>
 
 <script>
+import { useMouse, useInterval } from '@vueuse/core'
 export default {
   name: "HelloWorld",
   props: {
     msg: String,
   },
+  setup() {
+    const { x, y } = useMouse()
+    const { counter, pause, resume } = useInterval(200, {controls: true })
+    return {
+      x,
+      y,
+      counter,
+      pause,
+      resume
+    }
+  }
 };
 </script>
 
